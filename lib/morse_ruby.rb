@@ -1,19 +1,23 @@
-def decode(str)
+def decode_char(character)
   morse_hash = { '.-': 'a', '-...': 'b', '-.-.': 'c', '-..': 'd', '.': 'e', '..-.': 'f', '--.': 'g', '....': 'h',
                  '..': 'i', '.---': 'j', '-.-': 'k', '.-..': 'l', '--': 'm', '-.': 'n', '---': 'o', '.--.': 'p',
                  '--.-': 'q', '.-.': 'r', '...': 's', '-': 't', '..-': 'u', '...-': 'v', '.--': 'w', '-..-': 'x',
                  '-.--': 'y', '--..': 'z' }
-  delimiters = ['  ']
-  words = str.split(Regexp.union(delimiters))
+  morse_hash[:"#{character}"]
+end
 
+def decode_word(word)
   result = ''
-  words.each do |word|
-    word = word.split
-    word.each { |symbol| result += morse_hash[:"#{symbol}"] }
-    result += ' '
-  end
+  word.split.each { |symbol| result += decode_char(symbol) }
+  result
+end
 
+def decode_morse_code(str)
+  result = ''
+  str.split(Regexp.union(['  '])).each do |word|
+    result += "#{decode_word(word)} "
+  end
   puts(result)
 end
 
-decode('      .-   -... --- -..-   ..-. ..- .-.. .-..   --- ..-.   .-. ..- -... .. . ...')
+decode_morse_code('      .-   -... --- -..-   ..-. ..- .-.. .-..   --- ..-.   .-. ..- -... .. . ...')
