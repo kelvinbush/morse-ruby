@@ -8,7 +8,7 @@ def decode(str)
 
   result = ''
   words.each do |word|
-    word = word.split(' ')
+    word = word.split
     word.each { |symbol| result += morse_hash[:"#{symbol}"] }
     result += ' '
   end
